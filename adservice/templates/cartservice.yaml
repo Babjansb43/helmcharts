@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cartservice
+  namespace: elk
+spec:
+  selector:
+    matchLabels:
+      {{- include "cartservice.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cartservice.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      containers:
+      - name: server
+        image: {{ .Values.cartservice.image }}
+        ports:
+        - containerPort: 7070
+        env:
+        - name: REDIS_ADDR
+          value: "redis-cart:6379"
+        resources:
+          {{- toYaml .Values.cartservice.resources | nindent 10 }}
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:7070", "-rpc-timeout=5s"]
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:7070", "-rpc-timeout=5s"]
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cartservice
+  namespace: elk
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "cartservice.labels" . | nindent 6 }}
+  ports:
+  - name: grpc
+    port: 7070
+    targetPort: 7070

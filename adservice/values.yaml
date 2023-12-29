@@ -1,0 +1,101 @@
+serviceAccountName: default
+terminationGracePeriodSeconds: 5
+adservice:
+  image: gcr.io/google-samples/microservices-demo/adservice:v0.3.4
+  resources:
+    requests:
+      cpu: 200m
+      memory: 180Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+cartservice:
+  image: gcr.io/google-samples/microservices-demo/cartservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi      
+checkoutservice:
+  image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi     
+currencyservice:
+  image: gcr.io/google-samples/microservices-demo/currencyservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+emailservice:
+  image: gcr.io/google-samples/microservices-demo/emailservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi 
+frontend:
+  image: gcr.io/google-samples/microservices-demo/frontend:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi 
+paymentservice:
+  image: gcr.io/google-samples/microservices-demo/paymentservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi  
+productcatalogservice:
+  image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi  
+recommendationservice:
+  image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+rediscart:
+  image: redis:alpine
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi 
+shippingservice:
+  image: gcr.io/google-samples/microservices-demo/shippingservice:v0.3.1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi               
